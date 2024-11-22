@@ -1,0 +1,22 @@
+---
+- hosts: dev
+  tasks:
+  - name: Install apache webserver
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+  - name:  Start service httpd, if not started
+    ansible.builtin.service:
+      name: httpd
+      state: started
+  - name:  Copy the index.html
+    ansible.builtin.copy:
+      src: /root/playbooks/index.html
+      dest: /var/www/html/
+  - name:  Changing the port number
+    ansible.builtin.template:
+      src: /root/playbooks/httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    vars:
+      port: 90
+
