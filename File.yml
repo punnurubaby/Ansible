@@ -1,0 +1,23 @@
+- name: Task1 - Run on group1
+  hosts: dev
+  tasks:
+    - name: Task1 specific to group1
+      debug:
+        msg: "This task runs on hosts in group1"
+- name: Task2 - Run on group1
+  hosts: web
+  tasks:
+    - name: Task2 specific to group2
+      debug:
+        msg: "This task runs on hosts in group2"
+    - name: Install git
+      ansible.builtin.yum:
+        name: git
+        state: present
+      delegate_to: 13.201.188.8
+    - name: Install tree
+      ansible.builtin.yum:
+        name: tree
+        state: present
+      delegate_to: 13.127.91.104
+
